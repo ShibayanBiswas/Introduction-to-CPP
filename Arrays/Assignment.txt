@@ -1,0 +1,149 @@
+
+(a) Which of the following correctly declares an array of size 10 ?
+Answer: int array[10]; 
+
+(b) What will be the output of the following code ?
+int arr[100];
+cout << arr[0];
+Answer: Garbage value 
+
+(c) What is the index number of the last element of an array with 5 elements ?
+Answer: 4
+
+(d) Which of the following accesses the third element stored in array?
+Answer: array[2] 
+
+(e) What is the correct syntax for passing array to a function -
+void func(int a[]) {
+}
+
+int main() {
+    int a[10];
+    // Call function "func" and pass array a
+}
+Answer: func(a); 
+
+(f) What is the output?
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a[10];
+    cout << sizeof(a) << endl;
+}
+Answer: 40 
+
+(g) Assume an integer takes 4 bytes and a pointer takes 8 bytes.
+#include <iostream>
+using namespace std;
+
+void func(int a[]) {
+    cout << sizeof(a) << endl;
+}
+int main() {
+    int a[10];
+    func(a);
+}
+Answer: 8
+
+(h) Find Unique- You have been given an integer array of size N. Where N is equal to [2M + 1]. Now, in the given array/list, 'M' numbers are present twice and one number is 
+present only once. You need to find and return that number which is unique in the array.
+Answer: #include <climits>
+	int findUnique(int * arr, int size){                                     // Here the logic is that we are executing two loops for executing the current index and the index
+    		for(int i=0;i<size;i++){                                         for checking the duplicate elements if found the inner loop breaks and pointer moves to the next 
+        		int j;                                                   current index. If no duplicate is found then it is when the second loop has reached the last index 
+        		for(j=0;j<size;j++){                                     for checking and we return the array element with the present current index is the unique element
+            			if(i!=j){
+                			if(arr[i] == arr[j]){
+                    				break;
+               				}
+            			}
+        		}
+        		if(j==size){
+            			return arr[i];
+        		}
+   		 }
+    
+	}
+
+(i) Find Duplicate- You have been given an integer array/list(ARR) of size N which contains numbers from 0 to (N - 2). Each number is present at least once. That is, if N = 5, 
+the array/list constitutes values ranging from 0 to 3 and among these, there is a single integer value that is present twice. You need to find and return that duplicate number present 
+in the array.
+Answer: #include <climits>
+	int duplicateNumber(int arr[], int size) {                               // Same type of logic as the previous program but here we have to find the duplicate element
+    		int duplicate;
+    		for(int i = 0; i < size - 1; ++i) {
+        		for(int j = i + 1; j < size; ++j) {
+            			if(arr[i] == arr[j]) { 
+                			duplicate = arr[i];
+                			break;
+            			}
+       			 }
+    		}
+    		return duplicate;
+	}
+
+(j) Intersection of Two Arrays- You have been given two integer arrays of size N and M, respectively. You need to print their intersection; An intersection for this problem can be defined 
+when both the arrays contain a particular value or to put it in other words, when there is a common value that exists in both the arrays.
+Answer: #include <climits>
+	void intersection(int input1[], int input2[], int size1, int size2) {    // Here the logic is that we run 2 loops for the 2 arrays and when the current element of the array 
+		for(int i=0; i < size1; i++){                                    matches with a particular index element of the second array the according to the problem it is a 
+			for(int j=0; j< size2; j++){                             common element so we print that element from the first array and initialise the second array at that 
+				if(input1[i]==input2[j]){                        particular array with INT_MIN so that if any element in the first array is repeated does not get printed
+					cout << input1[i] << " ";                again
+					input2[j]=INT_MIN;
+					break;
+				}
+			}
+		}
+	}
+
+(k) Pair Sum- You have been given an integer array and a number X. Find and return the total number of pairs in the array which sum to X.
+Answer: #include <climits>
+	int pairSum(int input[], int size, int x) {                              // In the second loop we start checking from the next index from the current index in the array to 
+    		int count=0;                                                     check for the sum and as we get we increment the counter variable accordingly
+    		for(int i = 0; i < size; i++){
+        		for(int j = i + 1; j < size; j++){
+                		if((input[i] + input[j]) == x){
+                        		count++;
+                    		}
+                	}
+            	}
+    		return count;
+	}
+
+(l) Triplet Sum- You have been given a random integer array and a number X. Find and return the number of triplets in the array which sum to X.
+Answer: #include <climits>
+	int tripletSum(int arr[], int size, int x) {
+		int i,j,k,temp;
+    		int count=0;
+    		for( i = 0 ; i < size; i++){
+			for( j = i + 1 ; j < size; j++){
+				for( k = j + 1 ; k < size ; k++){
+					if( (arr[i] + arr[j] + arr[k]) == x){   
+                    				count++;
+					}			
+				}
+			}
+		}
+    		return count;
+	}
+
+(m) Sort 0 1- You have been given an integer array of size N that contains only integers, 0 and 1. Write a function to sort this array/list. Think of a solution which scans the array/list 
+only once and don't require use of an extra array/list.
+Answer: #include <climits>							 
+	void sortZeroesAndOne(int arr[], int n){                                 // Here we count the number of zeros in the array and store it in the counter variable. Then we run   				
+    		int count = 0;                                                   a loop from the zeroth index to the index counter-1 and print the zeros first and then run another loop                                        
+    		for (int i = 0; i < n; i++) {                                    from counter index to the index n-1 and print the ones 
+        		if (arr[i] == 0) 
+            			count++; 
+    		} 
+    		for (int i = 0; i < count; i++){
+        		arr[i] = 0; 
+    		}
+    		for (int i = count; i < n; i++) {
+        		arr[i] = 1; 
+    		}
+	}
+
+
