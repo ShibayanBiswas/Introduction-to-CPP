@@ -1,0 +1,351 @@
+Note: Wherever the limit of iteration is size-1 for the array that means there is a operation inside the iteration that checks for the i+1 index of the array. If this step was not taken 
+then we would have got out of index error for the array. 
+
+(a) Binary Search:
+
+#include <iostream>
+using namespace std;
+
+int binarySearch(int arr[], int n, int x) {
+	int start = 0, end = n - 1;
+	while(start <= end) {
+		int mid = (start + end) / 2;
+		if(arr[mid] == x) {
+			return mid;
+		}
+		else if(x < arr[mid]) {
+			end = mid - 1;
+		}
+		else {
+			start = mid + 1;
+		}
+	}
+	return -1;
+}
+
+int main() {
+	// Take array input from the user
+	int n;
+	cin >> n;
+	int input[100];
+	for(int i = 0; i < n; i++) {
+		cin >> input[i];
+	}
+	int x;
+	cin >> x;
+	cout << binarySearch(input, n, x) << endl;
+}
+
+
+(b) Selection Sort:
+
+#include <iostream>
+using namespace std;
+
+void selectionSort(int input[], int n) {
+	for(int i = 0; i < n-1; i++ ) {                                         
+		// Find min element in the array                              
+		int min = input[i], minIndex = i;
+		for(int j = i+1; j < n; j++) {
+			if(input[j] < min) {
+				min = input[j];
+				minIndex = j;
+			}
+		}
+		// Swap
+		int temp = input[i];
+		input[i] = input[minIndex];
+		input[minIndex] = temp;
+	}
+}
+
+int main() {
+	int input[] = {3, 1, 6, 9, 0, 4};
+	selectionSort(input, 6);
+	for(int i = 0; i < 6; i++) {
+		cout << input[i] << " ";
+	}
+	cout << endl;
+}
+
+
+(c) Bubble Sort:
+
+#include <iostream>
+using namespace std;
+
+void bubbleSort(int array[], int size) {
+	// run loops two times: one for walking throught the array
+	// and the other for comparison
+	for (int step = 0; step < size - 1; ++step) {
+		for (int i = 0; i < size - step - 1; ++i) {
+			// To sort in descending order, change > to < in this line.
+			if (array[i] > array[i + 1]) {
+				// swap if greater is at the rear position
+				int temp = array[i];
+				array[i] = array[i + 1];
+				array[i + 1] = temp;
+			}
+		}
+	}
+}
+
+// function to print the array
+void printArray(int array[], int size) {
+	for (int i = 0; i < size; ++i) {
+		cout << " " << array[i];
+	}
+	cout << endl;
+}
+
+// driver code
+int main() {
+	int data[] = {-2, 45, 0, 11, -9};
+	int size = sizeof(data) / sizeof(data[0]);
+	bubbleSort(data, size);
+	cout << "Sorted Array in Ascending Order:\n";
+	printArray(data, size);
+}
+
+
+(d) Insertion Sort:
+
+#include <iostream>
+using namespace std;
+
+void display(int array[], int size) {
+	for(int i = 0; i<size; i++){
+		cout << array[i] << " ";
+	}
+	cout << endl;
+}
+
+void insertionSort(int array[], int size) {
+	int key, j;
+	for(int i = 1; i<size; i++) {
+		key = array[i]; //take value
+		j = i;
+		while(j > 0 && array[j-1]>key) {
+			array[j] = array[j-1];
+			j--;
+		}
+	array[j] = key; //insert in right place
+	}
+}
+
+int main() {
+	int n;
+	cout << "Enter the number of elements: ";
+	cin >> n;
+	int arr[n]; //create an array with given number of elements
+	cout << "Enter elements:" << endl;
+	for(int i = 0; i<n; i++) {
+		cin >> arr[i];
+	}
+	insertionSort(arr, n);
+	cout << "Array after Sorting: ";
+	display(arr, n);
+}
+
+
+(e) Code Merge Two Sorted Arrays- You have been given two sorted arrays of size N and M respectively, merge them into a third array such that the third array is also sorted.
+
+Answer: #include <climits>
+	void merge(int arr1[], int size1, int arr2[], int size2, int ans[]){	        // In this Create an array arr3[] of size n1 + n2. Simultaneously traverse arr1[] and arr2[]. 
+            int i = 0, j = 0, k = 0;                                                    Pick smaller of current elements in arr1[] and arr2[], copy this smaller element to next 
+            while(i < size1 && j < size2){                                              position in arr3[] and move ahead in arr3[] and the array whose element is picked. If there 
+                         if(arr1[i] < arr2[j]){                                         are remaining elements in arr1[] or arr2[], copy them also in arr3[].
+            			ans[k++] = arr1[i++]; 
+        		}
+        		else{
+            			ans[k++] = arr2[j++]; 
+        		}
+    		}
+    		while(i < size1){ 
+        		ans[k++] = arr1[i++];
+    		}
+    		while(j < size2){ 
+        		ans[k++] = arr2[j++]; 
+    		}
+	}                                                                       
+
+
+(f) Push Zeros to end- You have been given a random integer array of size N. You have been required to push all the zeros that are present in the array to the end of it. 
+Also, make sure to maintain the relative order of the non-zero elements.
+
+Answer:  void pushZeroesEnd(int arr[], int n){
+    		int count=0;
+    		for(int i=0; i<n;i++){
+        		if(arr[i] != 0){
+            			arr[count] = arr[i];    //count no of non zeros and place them from the zeroth index
+            			count++;
+        		}
+    		}
+    		while(count<n){
+        		arr[count]=0;    //after counting number of non zeros insert zero to the rest of the indexes till n-1
+       			count++;
+    		}
+    
+	}
+
+
+(g) Rotate array- You have been given a random integer array/list(ARR) of size N. Write a function that rotates the given array/list by D elements(towards the left).
+
+Answer: #include <climits>
+	void swapElements(int *input, int i, int j){
+		int temp=input[i];
+		input[i]=input[j];
+		input[j]=temp;
+	}
+	
+	void reverse(int *input, int start, int end){
+		int i=start, j=end;
+		while(i<j){
+			swapElements(input, i, j);
+			i++;
+			j--;
+		}
+	}
+
+	void rotate(int *input, int d, int n){
+		if(d>=n && n!=0){
+			d=d%n;
+		}
+		else if(n==0){
+			return;
+		}
+		reverse(0,n-1);                 // Here we reverse the array
+		reverse(0,n-d-1);               // Here we re-reverse the array till the position after which the shifted elements are placed
+		reverse(n-d,n-1);               // Here we re-reverse the array from the position of shift till the last index
+ 	} 
+
+
+(h) Second Largest in array- You have been given a random integer array/list(ARR) of size N. You are required to find and return the second largest element present in the array.
+
+Answer: #include <climits>
+	int findSecondLargest(int *input,int n){
+   		 if(n<=0){
+        		return INT_MIN;
+		}
+    		int max=input[0];
+    		int secmax=INT_MIN;
+    		for(int i=1; i<n; i++) {
+        		if(input[i]>max){
+            			secmax=max;
+            			max=input[i];
+        		}
+        		else if(input[i]>secmax && input[i] != max){
+            			secmax=input[i];
+    			}
+		}
+   	 	return secmax;
+	}
+
+(i) Check Array Rotation- You have been given an integer array/list(ARR) of size N. It has been sorted(in increasing order) and then rotated by some number 'K' in the right hand direction.
+Your task is to write a function that returns the value of 'K', that means, the index from which the array/list has been rotated.
+
+Answer: #include <climits>
+	int arrayRotateCheck(int *input, int size){
+		for(int i=0; i<size-1; ++i){
+			if(input[i]>input[i+1]){    // Here the array is sorted so if the previous element is greater than the next then its (position + 1) givesthe value of rotation factor
+				return i+1;
+			}
+		}
+		return 0;
+	}
+
+
+(j) Sort 0 1 2- You are given an integer array/list(ARR) of size N. It contains only 0s, 1s and 2s. Write a solution to sort this array/list in a 'single scan'.
+'Single Scan' refers to iterating over the array/list just once or to put it in other words, you will be visiting each element in the array/list just once.
+
+Answer: Basically, we need to push all 0s in the array towards the front of the array and push all the 2s towards the end of the array. Notice that if we do this, the 1s will automatically 
+come in between the 0s and 2s. We’ll use a three pointer approach to solve this problem; the three pointers will be: current, zeroPos and twoPos. Let’s discuss what will be the purpose of 
+these three pointers:
+
+1. current - This will hold the position of the current element that we’re on during the iteration of the array. This will be initialised to 0.
+2. zeroPos - This will hold the index where we will push any 0s that we may encounter. This will be initialised to 0.
+3. twoPos - This will hold the index where we will push any 2s that we may encounter. This will be initialised to n - 1, where n is the size of the array
+
+Let’s discuss the approach to this problem in some detail. We’ll iterate through the array using the current pointer. Every element is either 0, 1 or 2 so let’s see what we’ll be doing in 
+each of these cases:
+
+1. arr[current] = 0 - In this case, we need to push the element towards the front of the array. To do that we can swap arr[current] and arr[zeroPos], then we will increase both current 
+and zeroPos by 1.
+2. arr[current] = 1 - In this case, we will just increase current by 1, since we are only concerned with push 0s to the front and 2s to the end of the array.
+3. arr[current] = 2 - In this case, we need to push the element towards the end of the array. Again, to do this, we’ll just swap arr[current] andarr[twoPos]. We will decrease twoPos by 1. 
+However, in this case we will not increase current by 1 (we’ll discuss why later).
+
+Now let’s discuss why we didn’t increase current by 1 in the case where arr[current] = 2. But before that there’s one more thing that we need to discuss. What will be the condition that 
+must be satisfied so that our loop can end? You might think that it’s when current reaches the end of the array but that’s not the case here. Let’s see why. Can you see what exactly the 
+two pointers, zeroPos and twoPos are doing? As we go through the array, every element before zeroPos is a 0 and every element after twoPos is a 2. Also, every element after zeroPos but 
+before current is a 1. Therefore, all these elements are ‘sorted’. The element that remain to be sorted are the ones that lie between the indices current and twoPos. Therefore our loop 
+will terminate when current reaches the value of twoPos. Now, let’s understand why we can’t increase the value of current when arr[current]= 2. When we swap arr[current] with arr[twoPos], 
+we don’t know what value was initially at index twoPos (before the swap happened), it could be any of the values 0, 1, or 2. So, we can’t increase the value of current without checking 
+what value was swapped with twoPos. We didn’t have to worry about this in the case where we were swapping arr[current] with arr[zeroPos] because then we would always be swapping 0 and 1.
+
+
+	void sort012(int *arr, int n){
+		int i=0;
+		int ZeroPos=0;       		                                         
+		int TwoPos=n-1;
+		while(i<=TwoPos){
+			if(arr[i]==0){
+				int temp=arr[i];
+				arr[i]=arr[ZeroPos];
+				arr[ZeroPos]=temp;
+				i++;
+				ZeroPos++;
+			}
+			else if(arr[i]==2){
+				int temp=arr[i];
+				arr[i]=arr[TwoPos];
+				arr[TwoPos]=temp;
+				TwoPos--;
+			}
+			else{
+				i++;
+			}
+		}
+	}
+
+
+(k) Sum of Two Arrays- Two random integer arrays/lists have been given as ARR1 and ARR2 of size N and M respectively. Both the arrays/lists contain numbers from 0 to 9(i.e. single digit 
+integer is present at every index). The idea here is to represent each array/list as an integer in itself of digits N and M. You need to find the sum of both the input arrays/list treating 
+them as two integers and put the result in another array/list i.e. output array/list will also contain only single digit at every index.
+
+Answer: void sumOfTwoArrays(int *input1, int size1, int *input2, int size2, int *output){
+		int i = size1 - 1;
+		int j = size2 - 1;
+		int carry = 0;
+		int k = max(size1, size2);
+		while(i>=0 && j>=0){
+			int sum = input1[i] + input2[i] + carry;
+			output[k] = sum % 10;
+			carry = sum / 10;
+			i--;
+			j--;
+			k--;
+		}
+		while(i>=0){
+			int sum = input1[i] + carry;
+			output[k] = sum % 10;
+			carry = sum / 10;
+			i--;
+			k--;
+		}
+		while(j>=0){
+			int sum = input1[j] + carry;
+			output[k] = sum % 10;
+			carry = sum / 10;
+			j--;
+			k--;
+		}
+		output[0]=carry;
+	}
+					
+		
+		    		
+
+
+
+
