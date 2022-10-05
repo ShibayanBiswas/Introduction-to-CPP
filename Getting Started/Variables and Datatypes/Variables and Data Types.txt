@@ -1,0 +1,23 @@
+So basically when we need a storage in C++ when need to declare it in a different way. 
+Whenever we need a memory allocation we have to declare what type of data we want to put and the second thing we have to tell is how big the data is going to be.
+
+Let's say we want to put an integer as storage so we can write:
+int a;
+This tells the compiler two things that we are allocating an integer for storage and the storage requirement that is generally 4 bytes for an integer (2 bytes for some systems but it depends on the compiler).
+int a=10; means that we have initially put some value in our storage along with declaring the type of value to be stored and the maximum storage requirement limit.
+The above thing will remove the error during compilation.
+
+Let's say we want to store a character so the syntax is :
+char d = 'x';
+Here the datatype is called char and the storage requirement is 1 byte for C++
+Here we should also note that we should give different names to different storage variables in order to avoid runtime errors.
+
+Ways for naming a variable i C++ are:
+1.Variable names in C++ can range from 1 to 255 characters.
+2.All variable names must begin with a letter of the alphabet or an underscore(_).
+3.After the first initial letter, variable names can also contain letters and numbers.  
+4.Variable names are case sensitive.
+5.No spaces or special characters are allowed.
+6.You cannot use a C++ keyword (a reserved word) as a variable name.
+
+ 
