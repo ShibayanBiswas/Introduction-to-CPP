@@ -1,0 +1,46 @@
+Steps for writing a program-
+1. Analyse your problem
+2. Break down your problem into smaller subparts
+3. Write down solution on paper
+4. Verify your solution with test cases
+5. Write down the code(here we will get less errors while converting the solution that we have written in paper into code)
+6. By using flow charts we can write our solution
+
+What is a flow chart?
+1. Diagramatic representation illustrating a solution to a given problem
+2. Allows you to break down any process into smaller steps and display them in a visually pleasing way
+
+Flowchart components-(For our programming always read flowchart from top to bottom)
+	Start	                (Terminator)	This is used for initiating the start of our program and we also have End as our terminator that helps us to go out of the program
+	Read N	                (Input/Output)	Here by N we declare a storage in the memory of the computer in terms of an input which can be singular or plural and it also refers to the computed value that is stored in a memory location of the computer for output
+	Let Sum=0,I=1	        (Process)	Here we are initialising our two variables for further use in the program as a part of the process
+	Is I greater than N?	(Decision)	Here it is taking a decesion to do certain tasks based on truth of a condition else follow the other tasks if the condition is false
+
+
+Note- 
+1. Arrows(vertical pointing downwards) are used in flow chart to represent flow of control in the program represented by the order in the topic "Flowchart components"
+2. There is another component in flowcharts known as connectors that we will be doing while discussing functions
+
+Examples-
+
+1. Add Two Numbers
+	Start
+	  |
+	Read a,b
+          |
+	c=a+b
+          |
+	Print c
+          |
+	 End
+
+2. Calculating the Simple Interest
+	 Start
+	   |
+	Read P,R,T
+	   |
+	SI=P*R*T/100
+	   |
+	Print SI
+	   |
+	  End
