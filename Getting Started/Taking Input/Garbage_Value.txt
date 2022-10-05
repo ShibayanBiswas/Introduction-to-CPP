@@ -1,0 +1,8 @@
+Allocating a variable ensures that any memory for that variable is reserved. 
+If a variable is assigned but not allocated in some programming languages such as C++, it is said to have a garbage value. 
+In a language like C++, when you define a variable, like:
+int x;
+A small block of memory is allocated to the variable. However, we have only declared the variable, and not initialized it, which means that the block of memory that has been allocated to the variable still contains some value that has been left over from previous programs and operations.
+That value is called a garbage value. This may lead to erroneous results in programs.
+To avoid this, declare and initialize variables like this:
+int x = 0;
