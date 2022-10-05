@@ -1,0 +1,116 @@
+While writing our code like if we write something in a file that is not exactly code-
+
+a=10
+b=15
+c=a+b
+
+This makes a lot of sense to we humans as we can understand what is happening because it is very close to the language that we are used to
+But in case of computer it understands only binary values that are in the form of "zeros" and "ones" where each character in a binary combination is known as a bit
+By programming we mean to write certain lines of code and want the computer to run it so we need a translator in between so that it converts the high level language that is understood by humans into binary form that is understood by the computer and vice versa
+This translator is known as the compiler that will modify our C++ code in such a format that it is understood by the computer and we get our desired result
+
+When we write some code it has to go through the compiler first and then we get our output fileI(binary)
+Compiler also finds the errors that are present in our code if any of it is present and hence we get to know our errors during time of compilation
+There would be some mistakes that would not be possible for the compiler to catch and are known as logical errors that is the mistake made by humans in the algorithm
+These mistakes can also be found during runtime known as runtime errors
+
+So when we will be writing code we must compile all our code as a result of it we would get an output file and we would run that
+We can use IDEs for running our codes as it makes our tasks easier as it compiles and runs our code automatically by just pressing a single button
+
+
+
+We can run our code in the Mac terminal as follows-
+
+1.We open our terminal and see something like this:
+
+Codings-Mac-mini:Inception codingninjastudio$ 
+
+2.Now we create our first file:
+
+Codings-Mac-mini:Inception codingninjastudio$ vi helloworld.cpp
+
+3.Our file opens where we write the start block:
+
+int main(){
+
+}
+
+4.Now we want to compile the file by using the software g++ that is previously installed:
+
+Codings-Mac-mini:Inception codingninjastudio$ ls
+helloworld.cpp
+Codings-Mac-mini:Inception codingninjastudio$ g++ helloworld.cpp
+a.out		helloworld.cpp                                                          # Here a.out is the binary output for the code that we have written and it is the default name
+Codings-Mac-mini:Inception codingninjastudio$ g++ helloworld.cpp -o hello               # Here we assign the name to our output file as hello
+Codings-Mac-mini:Inception codingninjastudio$ ls
+a.out		hello		helloworld.cpp                                          # Here file hello is created that contains the same thing there in a.out
+Codings-Mac-mini:Inception codingninjastudio$ rm a.out                                  # Here we remove the file a.out
+Codings-Mac-mini:Inception codingninjastudio$ clear
+
+5.Now our screen is cleared and we write some commands:
+
+Codings-Mac-mini:Inception codingninjastudio$ ls
+hello		helloworld.cpp
+Codings-Mac-mini:Inception codingninjastudio$ ./hello                                   # Here by this we run our executable binary file
+Codings-Mac-mini:Inception codingninjastudio$                                           # Here we get no output as we had not written anything in that file
+
+6.Now we go to our C++ program to write our code:
+
+int main(){
+  cout << "Hello World";        //Here the cout statement is an inbuilt command in the C++ language for printing something and "<<" means pushing in
+}
+
+7.Now we go to run the file:
+
+Codings-Mac-mini:Inception codingninjastudio$ ls
+hello		helloworld.cpp
+Codings-Mac-mini:Inception codingninjastudio$ ./hello                                   # Here by this we run our executable binary file
+Codings-Mac-mini:Inception codingninjastudio$ g++ helloworld.cpp -o hello
+helloworld.cpp:2:2: error: use of undeclared identifier 'cout'
+Codings-Mac-mini:Inception codingninjastudio$
+
+8.We again go to the program file:
+
+#include <iostream>             // We call this to run the inbuilt commands properly so that we donot get error during runtime
+
+using namespace std;           // Used to declare namespace for accessing the inbuilt commands 
+
+int main(){
+  cout << "Hello World";
+  cout << "\n";               // Used for the enter key so that the command console goes to the nex line      
+}
+
+9.Now we go to run the file:
+
+Codings-Mac-mini:Inception codingninjastudio$ g++ helloworld.cpp -o hello
+Codings-Mac-mini:Inception codingninjastudio$ ./hello
+Hello World
+Codings-Mac-mini:Inception codingninjastudio$
+
+
+Alternate ways of getting the same output-
+
+#include <iostream>
+using namespace std;
+int main(){
+  cout << "Hello World" << "\n';                     
+} 
+
+
+
+#include <iostream>
+using namespace std;
+int main(){
+  cout << "Hello World\n";                     
+} 
+
+
+
+#include <iostream>
+using namespace std;
+int main(){
+  cout << "Hello World" << endl;                     
+} 
+
+ 
+
