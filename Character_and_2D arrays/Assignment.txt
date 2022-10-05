@@ -1,0 +1,394 @@
+
+(a) Check Palindrome- Given a string, determine if it is a palindrome, considering only alphanumeric characters.
+Palindrome- A palindrome is a word, number, phrase, or other sequences of characters which read the same backwards and forwards.
+
+Answer: #include <string.h>
+	bool checkPalindrome(char str[]){			// Here we are checking the inequality of the elements at the starting position with the elements present at the 
+    		int i=0;                                        corresponding ending position till the middle position of the array where if the elements are unequal, we return false 
+   		int j = strlen(str) - 1;                        and till the end if none of the elements we are comparing are unequal we return true
+    		while(j > i){
+        		if(str[i] != str[j]){
+            			return false;
+        		}   
+        		i++;
+        		j--;
+    		}    
+    		return true;
+	}
+
+
+(b) Replace Character- Given an input string S and two characters c1 and c2, you need to replace every occurrence of character c1 with character c2 in the given string.
+
+Answer: #include <string.h>
+	void replaceCharacter(char input[], char c1, char c2) {
+    		int i=0;
+    		int j = strlen(input);
+    		for(i; i < j;i++){
+        		if(input[i] == c1){
+            			input[i]=c2;
+       			 }
+    		}
+	}
+
+
+(c) Trim Spaces- Given an input string S that contains multiple words, you need to remove all the spaces present in the input string. There can be multiple spaces present after any word.
+
+Answer: #include <string.h>
+	void trimSpaces(char input[]) {
+    		int count = 0;
+    		int len = strlen(input);
+    		for(int i = 0; input[i]; i++){
+        		if(input[i] != ' '){
+            			input[count]=input[i];
+            			count++;
+        		}
+    		}
+    		input[count] = '\0';
+	}
+
+
+(d) Reverse Word Wise- Reverse the given string word wise. That is, the last word in given string should come at 1st place, last second word at 2nd place and so on. Individual words 
+should remain as it is.
+
+Answer: int length(char input[]) {
+    		int len = 0;
+    		for(int i = 0; input[i] != '\0'; i++) {
+        		len++; 
+    		}
+    		return len;
+	}
+	void reverse(char input[], int start, int end) {
+    		int i = start, j = end;
+    		while(i < j) {
+        		char temp = input[i];
+        		input[i] = input[j]; 
+        		input[j] = temp;
+        		i++;
+        		j--;
+    		}
+	}
+	void reverseCompleteString(char input[]) { 
+    		int i = 0, j = length(input) - 1;
+    		while(i < j) {
+        		char temp = input[i];
+        		input[i] = input[j];
+        		input[j] = temp;
+        		i++;
+        		j--;
+    		}
+	}
+	void reverseStringWordWise(char input[]) {
+    		reverseCompleteString(input);
+    		int start = 0, end = 0, i;
+    		for(i = 0; input[i] != '\0'; i++) { 
+        		if(input[i] == ' ') {
+            			end = i - 1;
+            			reverse(input, start, end);
+            			start = i + 1;
+        		}
+    		}
+		// The end position here is for reversing the last word of the completely reversed string
+    		end = i - 1; 
+   		reverse(input, start, end); 
+	}
+
+
+(e) Print All Substrings- For a given input string(str), write a function to print all the possible substrings.
+
+Answer: #include <cstring>
+	void printSubstrings(char str[]){
+    		for(int start = 0; str[start] != '\0'; start++){
+        		for(int end = start; str[end] != '\0'; end++){
+            			for(int i = start; i <= end; i++){
+                			cout << str[i];
+            			}
+            			cout << endl;
+        		}
+    		}
+	}
+
+
+(f) Column Wise Sum- Given a 2D integer array of size M*N, find and print the sum of ith column elements separated by space.
+
+Answer: #include <iostream>
+	using namespace std;
+	int main(){
+    		int row, col;
+    		cin >> row >> col;
+    		int arr[row][col];
+    		for(int i = 0; i < row; i++){
+        		for(int j = 0; j < col; j++ ){
+            			cin >> arr[i][j];
+        		}
+    		}
+    		int j = 0;
+    		while(j < col){
+    			int i = 0;
+    			int sum = 0;
+    			for(i; i < row; i++){
+        			sum = sum +arr[i][j];
+    			}
+    			j++;
+    			cout << sum << " ";
+    		}
+	}
+
+
+(g) Largest Row or Column- For a given two-dimensional integer array/list of size (N x M), you need to find out which row or column has the largest sum(sum of all the elements in a 
+row/column) amongst all the rows and columns.
+
+Answer: #include <climits>
+	void findLargest(int **input, int nRows, int mCols){
+		bool isRow = true;
+		int largestSum = INT_MIN;
+		int num=0;
+		for(int i=0; i < nRows; i++){
+			int rowSum=0;
+			for(int j=0; j < mCols; j++){
+				rowSum += input[i][j];
+			}
+			if(rowSum > largestSum){
+				largestSum=rowSum;
+				num = i;
+			}
+		}
+		for(int j=0; j < mCols; j++){
+			int colSum=0;
+			for(int i=0; i < nRows; i++){
+				colSum += input[i][j];
+			}
+			if(colSum > largestSum){
+				largestSum=colSum;
+				num = j;
+				isRow = false;
+			}
+		}
+		if(isRow){
+			cout << "row" << " " << num << " " << largestSum;
+		}
+		else{
+			cout << "column" << " " << num << " " << largestSum;
+		}
+	}
+
+
+(h) Wave Print- For a given two-dimensional integer array/list of size (N x M), print the array/list in a sine wave order, i.e, print the first column top to bottom, next column bottom to 
+top and so on.
+
+Answer: #include <iostream>
+	using namespace std;
+	
+	//To get the desired waveform for a given matrix, first, print the elements of the first column of the matrix in the downward direction and then print the elements of the 2nd 
+	column in the upward direction, then print the elements in the third column in the downward direction and so on. 
+	
+	void wavePrint(int ** input, int row, int col){
+    		for(int i = 0 ;i < col; i++){
+			if(i % 2 == 0){
+				for(int j = 0; j < row; j++){
+					cout << input[j][i] << " ";
+				}
+			}
+			else{
+				for(int j = row - 1; j >= 0; j--){
+					cout << input[j][i] << " ";
+				}
+			}
+		}
+	}
+
+
+(i) Spiral Print- For a given two-dimensional integer array/list of size (N x M), print it in a spiral form. That is, you need to print in the order followed for every iteration:
+a. First row(left to right)
+b. Last column(top to bottom)
+c. Last row(right to left)
+d. First column(bottom to top)
+
+Answer: void spiralPrint(int **input, int nRows, int mCols){
+		if(nRows == 0 || mCols == 0){
+			return;
+		}
+		int i, rowStart = 0, colStart = 0;
+		int numElements = nRows * mCols, count = 0;
+		while(count < numElements){
+			for(i=colStart; count < numElements && i < mCols; ++i){
+				cout << input[rowStart][i] << " ";
+				count++;
+			}
+			rowStart++;
+			for(i=rowStart; count < numElements && i < nRows; ++i){
+				cout << input[i][mCols-1] << " ";
+				count++;
+			}
+			mCols--;
+			for (i = mCols - 1; count < numElements && i >= colStart; --i) { 
+				cout << input[nRows - 1][i] << " "; 
+				count++; 
+			} 
+			nRows--; 
+			for (i = nRows - 1; count < numElements && i >= rowStart; --i) { 
+				cout << input[i][colStart] << " "; 
+				count++; 
+			} 
+			colStart++; 
+		}
+ 	}
+
+
+(j) Check Permutation- For a given two strings, 'str1' and 'str2', check whether they are a permutation of each other or not.
+
+Answer: bool isPermutation(char input1[], char input2[]) { 
+	
+		int frequency[256];	// Total 256 characters possible to take input in a string
+		
+		for (int i = 0; i < 256; ++i) { 
+			frequency[i] = 0; 
+		} 
+		for (int i = 0; input1[i] != '\0'; ++i) { 
+			++frequency[input1[i]]; 
+		} 
+		for (int i = 0; input2[i] != '\0'; ++i) { 
+			--frequency[input2[i]]; 
+		} 
+		for (int i = 0; i < 256; ++i) { 
+			if (frequency[i] != 0) { 
+				return false; 
+			} 
+		} 
+		return true;
+	 }
+
+
+(k) Remove Consecutive Duplicates- For a given string(str), remove all the consecutive duplicate characters.
+
+Answer: void removeConsecutiveDuplicates(char input[]) { 
+		for (int i = 1; input[i] != '\0'; i++) { 
+			if (input[i] == input[i - 1]) { 
+				input[i - 1] = ' '; 
+			} 
+		} 
+		int space = 0; 
+		for (int i = 0; input[i] != '\0'; i++) { 
+			if (input[i] != ' ') { 
+				char tmp = input[i]; 
+				input[i] = input[space]; 
+				input[space] = tmp; 
+				space++; 
+			} 
+		} 
+	}
+
+
+(l) Reverse Each Word- Aadil has been provided with a sentence in the form of a string as a function parameter. The task is to implement a function so as to print the sentence such that 
+each word in the sentence is reversed.
+
+Answer: void reverse(char input[], int start, int end){
+	    int i = start, j = end;
+	    while(i < j){
+	        char temp = input[i];
+	        input[i] = input[j];
+	        input[j] = temp;
+	        i++;
+	        j--;
+	    }
+	}
+	void reverseEachWord(char input[]){
+	    int start = 0, end = 0, i;
+	    for(i = 0; input[i] != '\0'; i++){
+	        if(input[i] == ' '){
+	            end = i - 1;
+	            reverse(input, start, end);
+	            start = i + 1;
+	        }
+	    }
+	    end = i - 1;
+	    reverse(input, start, end);
+	}
+
+
+(m) Remove character- For a given a string(str) and a character X, write a function to remove all the occurrences of X from the given string.
+The input string will remain unchanged if the given character(X) doesn't exist in the input string.
+
+Answer: #include <cstring>
+	void removeAllOccurrencesOfChar(char input[], char c) {
+    		int j, n = strlen(input); 
+    		for (int  i= j = 0; i < n; i++){ 
+       			if (input[i] != c){ 
+          			input[j++] = input[i]; 
+			}
+      		}
+    		input[j] = '\0'; 
+	}
+
+
+(n) Highest Occuring Character- For a given a string(str), find and return the highest occurring character.
+
+Answer: #define ASCII_SIZE 256
+ 	#include <climits>
+	char highestOccurringChar(char str[]) {
+    		char result;
+  		int i, len;
+  		int max = INT_MIN;
+  		int freq[256] = {0}; 
+    		len = strlen(str);
+  		for(i = 0; i < len; i++){
+  			freq[str[i]]++;
+		}
+  		for(i = 0; i < len; i++){
+			if(max < freq[str[i]]){
+				max = freq[str[i]];
+				result = str[i];
+			}
+		}
+  		return result;
+	}
+
+
+(o) Compress the String- Write a program to do basic string compression. For a character which is consecutively repeated more than once, replace consecutive duplicate occurrences with 
+the count of repetitions.
+
+Answers: string getCompressedString(string &input) { 
+		if (input.length() == 0){ 
+			return ""; 
+		} 
+		// Variables to iterate the string and keep the count of the current character. 
+		int startIndex = 0;
+		int endIndex = 0; 
+		// Resultant string.
+		string compressedString = ""; 
+		// Iterate all the characters of the string. 
+		while (startIndex < input.length()) { 
+			while ((endIndex < input.length()) && (input[endIndex] == input[startIndex])) { 
+				endIndex += 1; 
+			} 
+			int totalCharCount = endIndex - startIndex; 
+			// If count is greater than 1, then append count to the string, else only character. 
+			if (totalCharCount != 1) { 
+				compressedString += input[startIndex]; 
+				compressedString += (char)(totalCharCount + '0');  //If you look at the ASCII table, you'll see that the digits start at 48 (being '0') and go up to 57 
+			}                                                          (for '9'). So in order to get the character code for a digit, you can add that digit to the character 
+			else {                                                     code of '0'.
+				compressedString += input[startIndex]; 
+			} 
+			startIndex = endIndex; 
+		} 
+		return compressedString; 
+	}
+			    
+		 
+
+(p) Maximum sum row- In a 2-Dimensional array that is a matrix, find the row with the maximum sum and the value of the maximum sum.
+
+Answer: void findMaxRow(int arr[m][n]) {
+   		int maxSumRow = INT_MIN, maxSum = INT_MIN;
+   		for (i = 0; i < m; i++) {
+      			int sum = 0;
+      			for(int j = 0; j < n; j++){
+         			sum += arr[i][j];
+      			}
+      			if(sum > maxSum){
+         			maxSum = sum;
+         			maxSumRow = i;
+      			}
+   		}
+   		cout << "Row : " << (maxSumRow + 1) << " has the maximum sum which is " << maxSum;
+	}
