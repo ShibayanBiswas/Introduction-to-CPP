@@ -92,8 +92,7 @@ Answer: #include<iostream>
     		}
 	}
 
-(e) Take input a stream of n integer elements, find the second largest element present.
-The given elements can contain duplicate elements as well. If only 0 or 1 element is given, the second largest should be INT_MIN (-2^31).
+(e) Take input a stream of n integer elements, find the second largest element present. The given elements can contain duplicate elements as well. If only 0 or 1 element is given, the second largest should be INT_MIN (-2^31).
 Sample Input:
  4
  3 9 0 9
