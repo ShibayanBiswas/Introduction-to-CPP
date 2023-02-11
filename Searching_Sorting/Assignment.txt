@@ -272,7 +272,7 @@ each of these cases:
 1. arr[current] = 0 - In this case, we need to push the element towards the front of the array. To do that we can swap arr[current] and arr[zeroPos], then we will increase both current 
 and zeroPos by 1.
 2. arr[current] = 1 - In this case, we will just increase current by 1, since we are only concerned with push 0s to the front and 2s to the end of the array.
-3. arr[current] = 2 - In this case, we need to push the element towards the end of the array. Again, to do this, we’ll just swap arr[current] andarr[twoPos]. We will decrease twoPos by 1. 
+3. arr[current] = 2 - In this case, we need to push the element towards the end of the array. Again, to do this, we’ll just swap arr[current] and arr[twoPos]. We will decrease twoPos by 1. 
 However, in this case we will not increase current by 1 (we’ll discuss why later).
 
 Now let’s discuss why we didn’t increase current by 1 in the case where arr[current] = 2. But before that there’s one more thing that we need to discuss. What will be the condition that 
