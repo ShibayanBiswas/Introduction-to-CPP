@@ -214,9 +214,9 @@ Answer: #include <climits>
 		else if(n==0){
 			return;
 		}
-		reverse(0,n-1);                 // Here we reverse the array
-		reverse(0,n-d-1);               // Here we re-reverse the array till the position after which the shifted elements are placed
-		reverse(n-d,n-1);               // Here we re-reverse the array from the position of shift till the last index
+		reverse(input,0, n-1);                 // Here we reverse the array
+		reverse(input, 0, n-d-1);               // Here we re-reverse the array till the position after which the shifted elements are placed
+		reverse(input, n-d, n-1);               // Here we re-reverse the array from the position of shift till the last index
  	} 
 
 
