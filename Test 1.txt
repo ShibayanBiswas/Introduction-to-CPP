@@ -1,0 +1,90 @@
+
+1. Print the following pattern for the given number of rows.
+
+		Pattern for N = 4 :-
+
+   			1
+  		     212
+                32123
+               4321234
+
+Answer: int main(){
+		int n;
+		cin >> n;
+		for(int i = 1; i <= n; i++){
+			for(int j = n; j > 1; j--){
+				cout << " ";
+			}
+			for(int k = i; k >= 1; k--){
+				cout << k;
+			}
+			for(int l = 2; l <= i; l++){
+				cout << l;
+			}
+			cout << "\n";
+		}
+	} 
+
+
+
+
+2. Number Star Pattern - Print the following pattern for given number of rows.
+
+			  Pattern for N = 5 :-
+
+				1234554321
+				1234**4321
+				123****321
+				12******21
+				1********1
+
+Answer: int main(){
+		int n;
+		cin >> n;
+		for(int i = n; i >= 1; i++){
+			for(int j = 1; j <= n; j++){
+				if(j <= i){
+					cout << j;
+				}
+				else{
+					cout << "*";
+				}
+			}
+			for(int j = n; j >= 1; j--){
+				if(j <= i){
+					cout << j;
+				}
+				else{
+					cout << "*";
+				}
+			}
+			cout << endl;
+		}
+	}
+
+
+
+
+3. Second Largest - Take input a stream of n integer elements, find the second largest element present.
+
+Answer: int main(){
+		int n;
+		cin >> n;
+		int max = INT_MIN, secondMax = INT_MIN;
+		
+		int num;
+		int count = 1;
+		while(count <= n){
+			cin >> num;
+			if(num > max){
+				secondMax = max;
+				max = num;
+			}
+			else if(num > secondMax && num != max){
+				secondMax = num;
+			}
+			count++;
+		}
+		cout << secondMax << endl;
+	}
+		
