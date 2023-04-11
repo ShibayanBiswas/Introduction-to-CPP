@@ -4,9 +4,9 @@
 		Pattern for N = 4 :-
 
    			1
-  		     212
-                32123
-               4321234
+  		       212
+                      32123
+                     4321234
 
 Answer: int main(){
 		int n;
