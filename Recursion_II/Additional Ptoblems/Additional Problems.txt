@@ -1,0 +1,333 @@
+
+1. Check AB - Suppose you have a string, S, made up of only 'a's and 'b's. Write a recursive function that checks if the string was generated using the following rules:
+	a. The string begins with an 'a'
+	b. Each 'a' is followed by nothing or an 'a' or "bb"
+	c. Each "bb" is followed by nothing or an 'a'
+If all the rules are followed by the given string, return true otherwise return false.
+
+Answer: bool checkAB(char input[], int startIndex){
+		if(input[startIndex] == '\0'){    //base case
+			return true;
+		}
+
+		if(input[startIndex] != 'a'){
+			return false;
+		}
+		if(input[startIndex + 1] != '\0' && input[startIndex + 2] != '\0'){
+			 if(input[startIndex + 1] != 'b' && input[startIndex + 2] != 'b'){
+				return checkAB(input, startIndex + 3);
+			}
+		}
+		return checkAB(input, startIndex + 1);
+	}
+
+	bool check(char input[]){
+		bool ans;
+		ans = checkAB(input, 0);
+		return ans;
+	}
+
+
+
+
+2. Staircase - A child is running up a staircase with N steps, and can hop either 1 step, 2 steps or 3 steps at a time. Implement a method to count how many possible ways the child can run up to the stairs. You need to return number of possible ways W.
+
+Answer: int staircase(int n){
+		if(n < 0){
+			return 0;
+		}
+		if(n == 0){
+			return 1;
+		}
+		return staircase(n - 1) + staircase(n - 2) + staircase(n - 3);
+	}
+
+
+
+
+3. Binary Search (Recursive) - Given an integer sorted array (sorted in increasing order) and an element x, find the x in given array using binary search. Return the index of x.
+
+Answer: int binarySearch(int input[], int start, int end, int x){
+		if(start > end){
+			return -1;
+		}
+		int mid = (start + end)/2;
+		if(input[mid] == x){
+			return mid;
+		}
+		else if(input[mid] > x){
+			return binarySearch(input, start, mid - 1, x);
+		}
+		else{
+			return binarySearch(input, mid + 1, end, x);
+		}
+	}
+
+	int search(int input[], int size, int x){
+		return binarySearch(input, 0, size - 1, x);
+	}
+
+
+
+
+4. Return subset of an array - Given an integer array (of length n), find and return all the subsets of input array.
+
+Approach: 1. Initialise a variable startIndex, and pass it in the recursive helper function, which will require input, output, and the startIndex (initially 0).
+	    2. Recursively find the subsets which do not contain the element at startIndex.
+	    3. Recursion returns the size for the subsets, say, smallSize.
+	    4. Using a loop, we append the subsets returned to our 2D output array, along with their size as the first column.
+	    5. Now, we append the element at startIndex to the 2D output array as well.
+	    6. Return 2*smallSize, as the total number of subsets generated will be twice the number obtained from the recursion at that level. ( for example, if we receive 3 subsets from
+		 recursion, we need to create 3 more subsets after appending the element at startIndex)
+
+Answer: int subset(int input[], int n, int startIndex, int output[][20]){
+		if(startIndex == n){
+			output[0][0] = 0;
+			return 1;
+		}
+		int smallSize = subset(input, n, startIndex + 1, output);
+		for(int i = 0; i < smallSize; i++){
+			output[smallSize + i][0] = output[i][0] + 1;
+			output[smallSize + i][1] = input[startIndex];
+			for(int j = 1; j <= output[i][0]; j++){
+				output[smallSize + i][j + 1] = output[i][j];
+			}
+		}
+		return 2 * smallSize;
+	}
+
+	int subset(int input[], int n, int output[][20]){
+		return subset(input, n, 0, output);
+	}
+
+
+5. Print Subsets of Array - Given an integer array (of length n), find and print all the subsets of input array.
+
+Approach: 1. Initialise an empty output array, and pass it in the recursive helper function, which will require input, output, and the startIndex (initially 0).
+          2. Inside it, initialise a smallOutput array to store output till now, with current size as 0.
+          3. Recursively call on outputs which do not contain the first element of the array, which means calling recursion from startIndex + 1.
+          4. Copy the contents of the output array into the smallOutput.
+          5. Append the element at the startIndex of the input array to the smallOutput.
+          6. Now, smallOutput stores the outputs which contain the element at the startIndex.
+          7. Recursively call on this new smallOutput to maintain those outputs which contain the first element from the input array.
+          8. For base case, if the startIndex equals the size of the input array, print the output till now, and return from the recursion.
+
+Answer: void subset(int input[], int startIndex, int size, int output[], int oSize){
+		if(startIndex == size){
+			for(int i = 0; i < oSize; i++){
+				cout << output[i] << " ";
+			}
+			cout << endl;
+			return;
+		}
+		int smallOutput[40];
+		subset(input, startIndex + 1, size, output, oSize);
+
+		int i;
+		for(i = 0; i < oSize; i++){
+			smallOutput[i] = output[i];
+		}
+		smallOutput[i] = input[startIndex];
+		subset(input, startIndex + 1, size, smallOutput, oSize + 1);
+	}
+
+	void subset(int input[], int size){
+		int output[100];
+		return subset(input, 0, size, output, 0);
+	}	
+
+
+
+6. Return subsets sum to K - Given an array A of size n and an integer K, return all subsets of A which sum to K.
+
+Approach: 1. Initialise two 2D arrays to store the output for the above mentioned two recursive calls, say, smallOutput1 and smallOutput2.
+	    2. Using two recursion calls, find out the subsets which include K, where the output array passed is smallOutput2, and do not include K, where the output array passed is      			 smallOutput1 .
+	    3. Let the sizes returned by these recursions be stored in size1 and size2.
+	    4. Copy the output stored in smallOutput1 in a final output array.
+          5. Also, copy the output stored in smallOutput2, with K appended in the end, in the final output array.
+          6. Keep a count of the number of rows while copying. This will give you the size of your output matrix.
+          7. Finally, return this size.
+          8. Base Case: Repeat the above steps until startIndex becomes equal to n. If K is also equal to 0, return 1, else return 0.
+
+Answer: int subsetSumToK(int input[], int n, int startIndex, int output[][50], int k){
+		if(startIndex == n){
+			if(k == 0){
+				output[0][0] = 0;
+				return 1;
+			}
+			else{
+				return 0;
+			}
+		}
+		int smallOutput1[1000][50], smallOutput2[1000][50];		
+		int size1 = subsetSumToK(input, n, startIndex + 1, smallOutput1, k);
+		int size2 = subsetSumToK(input, n, startIndex + 1, smallOutput2, k - input[startIndex]);
+		
+		int row = 0;
+		for(int i = 0; i < size1; i++){
+			for(int j = 0; j <= smallOutput1[i][0]; j++){
+				output[row][j] = smallOutput1[i][j];
+			}
+			row++;
+		}
+		for(int i = 0; i < size2; i++){
+			output[row][0] = smallOutput2[i][0] + 1;
+			output[row][1] = input[startIndex];
+			for(int j = 1; j <= smallOutput2[i][0]; j++){
+				output[row][j + 1] = smallOutput2[i][j];
+			}
+			row++;
+		}
+		return row;
+	}
+
+	int subsetSumToK(int input[], int n, int output[][50], int k){
+		return subsetSumToK(input, n, 0, output, k);
+	}
+
+
+
+
+7. Print Subset Sum to K - Given an array A and an integer K, print all subsets of A which sum to K.
+
+Approach: 1. Initialise a 1D array to store the output so far and send it as a parameter in the helper function.
+	    2. Inside the helper function, declare a 1D array (newOutput) to maintain the output so far for one of the two recursive calls to be made.
+	    3. Using a loop, copy the elements of the previous output into newOutput. Also, append the number at startIndex to the newOutput, as this will be storing the output where
+             the fixed number is considered to be a part of the output.
+          4. Call recursion first with the previous output and K as it is, and increasing startIndex by one.
+	    5. Second, call recursion with the newOutput, K - arr[startIndex] (as we have considered this in our output itself) and increase startIndex by one.
+	    6. Base Case: Repeat the above steps until startIndex becomes equal to n. If K is also equal to 0, print the output so for, else return from the function.
+
+Answer: void subsetSumToK(int input[], int startIndex, int size, int output[], int oSize, int k){
+		if(startIndex == size){
+			if(k == 0){
+				for(int i = 0; i < oSize; i++){
+					cout << output[i] << " ";
+				}
+				cout << endl;
+			}
+			return;
+		}
+		int smallOutput[1000];
+		subsetSumToK(input, startIndex + 1, size, output, oSize, k);
+		
+		int i;
+		for(i = 0; i < oSize; i++){
+			smallOutput[i] = output[i];
+		}
+		smallOutput[i] = input[startIndex];
+		subsetSumToK(input, startIndex + 1, size, smallOutput, oSize + 1, k - input[startIndex]);
+	}
+
+	void subsetSumToK(int  input[], int size, int k){
+		int output[1000];
+		subsetSumToK(input, 0, size, output, 0, k);
+	}
+	
+
+
+
+8. Return all codes - Assume that the value of a = 1, b = 2, c = 3, ... , z = 26. You are given a numeric string S. Write a program to return the list of all possible codes that can be generated from the given string.
+
+Base Case: Repeat the process until the first character of input (string) becomes '\0' (where a string terminates).	
+
+Answer: int getCodes(string input, string output[]){
+		if(input[0] == '\0'){
+			output[0] = "";
+			return 1;
+		}
+		int first = input[0] - '0';
+		char firstChar = first + 'a' - 1;
+		char secondChar = '\0';
+		
+		string smallOutput1[1000], smallOutput2[1000];
+		int size1 = getCodes(input.substr(1), smallOutput1);
+		int size2 = 0;
+		
+		if(input[1] != '\0'){
+			int second = first * 10 + input[1] - '0';
+			if(second >= 10 && second <= 26){
+				secondChar = second + 'a' - 1;
+				size2 = getCodes(input.substr(2), smallOutput2);
+			}
+		}
+		int k = 0;
+		for(int i = 0; i < size1; i++){
+			output[k] = firstChar + smallOutput1[i];
+			k++;
+		}
+		for(int i = 0; i < size2; i++){
+			output[k] = secondChar + smallOutput2[i];
+			k++;
+		}
+		return k;
+	}
+
+
+
+
+9. Print all Codes - Assume that the value of a = 1, b = 2, c = 3, ... , z = 26. You are given a numeric string S. Write a program to print the list of all possible codes that can be generated from the given string.
+
+Answer: void getCodes(string input, string output){
+		if(input[0] == '\0'){
+			cout << output << endl;
+			return;
+		}
+		int num = input[0] - '0';
+		char ch = num - 1 + 'a';
+		getCodes(input.substr(1), output + ch);
+		if(input[1]  != '\0'){
+			num = num * 10 + input[1] - '0';
+			ch = num - 1 + 'a';
+			if(num >= 10 && num <= 26){
+				getCodes(input.substr(2), output + ch);
+			}
+		}
+	}
+	
+	void printAllPossibleCodes(string input){
+		getCodes(input, "");
+	}
+
+
+
+
+10. Return Permutations - Given a string S, find and return all the possible permutations of the input string.	
+
+Answer: int permutations(string input, string output[]){
+		if(input.length() == 0){
+			output[0] = "";
+			return 1;
+		}
+		string smallOutput[1000];
+		int smallSize = permutations(input.substr(1), smallOutput);
+		
+		int k = 0;
+		for(int i = 0; i < smallSize; i++){
+			for(int j = 0; j <= smallOutput[i].length(); j++){
+				output[k] = smallOutput[i].substr(0, j) + input[0] + 	smallOutput[i].substr(j);
+				k++;
+			}
+		}
+		return k;
+	}
+
+
+
+
+11. Print Permutations - Given an input string (str), print all possible permutations of the input string.	
+
+Answer: void permutations(string input, string output){
+		if(input.length() == 0){
+			cout << output << endl;
+			return;
+		}
+		for(int i = 0; i <= output.length(); i++){
+			permutations(input.substr(1), output.substr(0, i) + output[0] + output.substr(i));
+		}
+	}
+
+	void permutations(string input){
+		string output;
+		permutations(input, output);
+	}

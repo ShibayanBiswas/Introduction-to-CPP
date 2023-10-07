@@ -1,0 +1,212 @@
+
+1. Replace Character Recursively - Given an input string S and two characters c1 and c2, you need to replace every occurrence of character c1 with character c2 in the given string.
+
+Answer: void replaceCharacter(char input[], char c1, char c2){
+		if(input[0] == '\0') {
+        		return;
+    		}
+		if(input[0] == c1){
+			input[0] = c2;
+		}
+		replaceCharacter(input + 1, c1, c2);
+	}
+
+
+
+
+2. Remove Duplicates Recursively - Given a string S, remove consecutive duplicates from it recursively.
+
+Answer: void removeConsecutiveDuplicates(char *input){	// We can pass an array as reference (initial reference to the 0th element)
+		if(*input == '\0') {
+        		return;
+    		}
+		if(*input == *(input + 1)){	// Checking the current index with the next index
+			int i = 1;
+			for(; input[i] != '\0'; i++){
+				input[i -1] = input[i];
+			}
+			input[i - 1] = input[i];
+			removeConsecutiveDuplicates(input);    // Call the functiom after removing the consective duplicate to check for further consecutive duplicates
+		}
+		else{
+			removeConsecutiveDuplicates(input + 1);	// if(*input != *(input + 1))
+		}
+	}
+
+
+
+
+3. Merge Sort Code - Sort an array A using Merge Sort. Change in the input array itself. So no need to return or print anything.
+
+Answer: void merge(int arr[], int start, int end){
+    		int size = end - start + 1;
+    		int mid = (start + end)/2;
+    		int *output = new int[size];    //creating a new array by dynamic allocation
+    		int i = start;    //starting of first array
+    		int j = mid + 1;    //starting of second array
+    		int k = 0;    //what we want in output
+    		while(i <= mid && j <= end){
+        		if(arr[i] < arr[j]){
+            		output[k] = arr[i];
+            		i++;
+            		k++;
+        		}
+        		else{
+            		output[k] = arr[j];
+            		j++;
+            		k++;
+        		}
+    		}
+    		while(i <= mid){
+        		output[k] = arr[i];
+        		k++;
+        		i++;
+    		}
+    		while(j <= end){
+        		output[k] = arr[j];
+        		k++;
+        		j++;
+    		}
+    		int index = 0;
+    		for(int i = start; i <= end; i++){    //updating the original array with output array
+        		arr[i] = output[index];
+        		index++;
+    		}
+    		delete [] output;
+	}
+
+	void merge_sort(int arr[], int start, int end){
+    		if(start >= end){    //base case - 0 or 1 element in arr
+       		return; 
+    		}
+    		int mid = (start + end)/2;
+    		merge_sort(arr, start, mid);
+    		merge_sort(arr, mid + 1, end);
+    		merge(arr, start, end);
+	}
+
+	int main(){
+    		int arr[] = {6, 5, 4, 3, 2, 1};
+    		merge_sort(arr, 0, 5);
+    		for(int i = 0; i <6; i++){
+        		cout << arr[i] << " ";
+    		}
+    		cout << endl;
+	}
+
+
+
+
+4. Quick Sort Code - Sort an array A using Quick Sort. Change in the input array itself. So no need to return or print anything.
+
+Answer: int partition(int arr[], int start, int end){    //partition function
+    		int pivot = arr[start];    //pivot element is the element at the starting postion of the array
+    		int countSmaller = 0;    //stores the number of elements smaller than equal to the pivot element
+    		for(int i = start + 1; i <= end; i++){
+        		if(arr[i] <= pivot){
+            		countSmaller++;
+        		}
+    		}
+    		int pivotIndex = countSmaller + start;    //the index where we have to swap the pivot element
+    		//swapping the pivot element with the element present in its actual postion
+    		arr[start] = arr[pivotIndex];
+    		arr[pivotIndex] = pivot;
+    		//keeping smaller before pivot and larger after pivot
+    		int i = start;
+    		int j = end;
+    		while(i < pivotIndex && j > pivotIndex){
+        		if (arr[i] <= pivot){    //element less than pivot in correct position(before pivot)?
+            		i++;
+        		}
+        		else if(arr[j] > pivot){    //element greater than pivot in correct postion(after pivot)?
+            		j--;
+        		}
+        		else{    //if not the above cases swap them
+            		int temp = arr[i];
+            		arr[i] = arr[j];
+            		arr[j] = temp;
+            		i++;
+            		j--;
+        		}
+    		}
+    		return pivotIndex;
+	}
+
+	void quick_sort(int arr[], int start, int end){
+    		if (start >= end){    //base case
+        		return;
+    		}
+    		int pos = partition(arr, start, end);
+    		quick_sort(arr, start, pos-1);    //sorts the values smaller thatn pivot
+    		quick_sort(arr, pos+1, end);    //sorts the values greater than pivot
+	}
+
+	int main(){
+    		int arr[] = {5, 8, 7, 2, 3, 1, 9};
+    		quick_sort(arr, 0, 6);
+    		for(int i = 0; i < 7; i++){
+        		cout << arr[i] << " ";
+    		}
+    		cout << endl;
+	}
+
+
+
+
+5. Return Keypad Code - Given an integer n, using phone keypad find out all the possible strings that can be made using digits of input n. Return empty string for numbers 0 and 1.
+
+Answer: int keypad(int num, string output[], string options[]){
+		if(num == 0){    //base case
+			output[0] = "";
+			return 1;
+		}
+		int lastDigit = num % 10;    //extracting the last digit
+		int smallNumber = num / 10;    //reducing the number
+		string smallOutput[500];
+
+		int smallCount = keypad(smallNumber, smallOutput, options);    //returns length of smallOutput[] (stores keypad combinations for smallNumber)
+		string option = options[lastDigit];
+		
+		int k = 0;
+		//making copies and appending the elements of the string associated with the last digit
+		for(int i = 0; i < op.length(); i++){
+			for(int j = 0; j < smallCount; j++){
+				output[k] = smallOutput[j] + op[i];
+				k++;
+			}
+		}
+		return k;    //lenght of output[]
+	}
+
+	int keypadCombinations(int num, string output[]){
+		//defining all the keypad options available
+		string options[] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+		return keypad(num, output, options);
+	}		
+		
+
+
+
+6. Print Keypad Combinations Code - Given an integer n, using phone keypad find out and print all the possible strings that can be made using digits of input n.
+
+Answer: void keypad(int num, string output, string options[]){
+		if(num == 0){    //base case
+			cout << output << endl;
+		}
+		int lastDigit = num % 10;
+
+		int i = 0;
+		while(i < options[lastDigit].length()){
+			keypad(num / 10, options[lastDigit][i] + output, options);
+			i++;
+		}
+		return;
+	}
+
+	void keypadCombinations(int num){
+		//defining all the keypad options available
+		string options[] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+		return keypad(num, "", options);
+	}
+
+		

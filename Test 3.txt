@@ -1,0 +1,84 @@
+
+1. The recurrence relation capturing the optimal execution time of the Towers of Hanoi problem with n discs is :
+Answer: T(n) = 2T(n − 1) + 1
+
+
+2. Which of the following operations is not O(1) for an array of sorted data. You may assume that array elements are distinct.
+Answer: Delete an element
+
+
+3. Which one of the following correctly determines the solution of the recurrence relation with T(1) = 1?
+	T(n) = 2T(n/2) + Logn
+Answer: O(N)
+
+
+4. Does s contain t ? -Given two string s and t, write a function to check if s contains all characters of t (in the same order as they are in string t). Return true or false. Do it recursively.
+
+Answer: bool checksequence(char large[], char *small){
+		if(small[0] == '\0'){
+			return true;
+		}
+		if(large[0] == '\0'){
+			return false;
+		}
+		if(large[0] == small[0]){
+			bool a = checksequence(++large, ++small);
+			return a;
+		}
+		else{
+			return checksequence(++large, small);
+		}
+	}
+
+
+
+
+5. Maximum Profit on App - You have made a smartphone app and want to set its subscription price such that the profit earned is maximised. There are certain users who will subscribe to your app only if their budget is greater than or equal to your price. You will be provided with a list of size N having budgets of subscribers and you need to return the maximum profit that you can earn.
+
+Answer: int maximumProfit(int budget[], int n){
+		sort(budget, budget + n);
+		int *cost = new int[n];
+		for(int i = 0; i < n; i++){
+			cost[i] = budget[i] * (n - i);
+		}
+		int max = 0;
+		for(int i = 0; i < n; i++){
+			if(cost[i] > max){
+				max = cost[i];
+			}
+		}
+		return max;
+	}
+
+
+
+
+6. Split Array - Given an integer array A of size N, check if the input array can be splitted in two parts such that -
+
+	- Sum of both parts is equal
+	- All elements in the input, which are divisible by 5 should be in same group.
+	- All elements in the input, which are divisible by 3 (but not divisible by 5) should be in other group.
+	- Elements which are neither divisible by 5 nor by 3, can be put in any group.
+
+Groups can be made with any set of elements, i.e. elements need not to be continuous. And you need to consider each and every element of input array in some group. Return true, if array can be split according to the above rules,  else return false.
+
+Answer: bool check(int *input, int size, int startIndex, int lSum, int rSum){
+		if(startIndex == size){
+			return lSum == rSum;
+		}
+		if(input[startIndex] % 5 == 0){
+			lSum += input[startIndex];
+		}
+		else if(input[startIndex] % 3 == 0){
+			rSum += input[startIndex];
+		}
+		else{
+			bool leftAns = check(input, size, startIndex + 1, lSum + input[startIndex], rSum);
+			bool rightAns = check(input, size, startIndex + 1, lSum, rSum + input[startIndex]);
+			return leftAns || rightAns;
+		}
+		return check(input, size, startIndex + 1, lSum, rSum);
+	}
+	bool splitArray(int *input, int size){
+		return check(input, size, 0, 0, 0);
+	}

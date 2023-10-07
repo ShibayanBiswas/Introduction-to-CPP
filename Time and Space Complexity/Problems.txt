@@ -1,0 +1,100 @@
+
+1. The Worst case(s) occur in linear search algorithm when -
+Answer: Item is the last element in the array, Item is not in the array at all
+
+
+2. The worst case time complexity of Linear search is :
+Answer: O(n)
+
+
+3. Worst case time complexity of insertion sort is ?
+Answer: O(n^2)
+
+
+4. Worst case time complexity of Selection sort is ?
+Answer: O(N^2)
+
+
+5. Two main measures for the efficiency of an algorithm are -
+Answer: Time and space
+
+
+6. In theoretical analysis the time factor when determining the efficiency of algorithm is measured by -
+Answer: Counting the number of unit operations
+
+
+7. If the number of primary operations of an algorithm that takes an array of size n as input are 3n^2 + 5n. The worst case time complexity of the algorithm will be ?
+Answer: O(n^2)
+
+
+8. What will be the Time Complexity of following code in terms of ‘n’ ?
+	for(int i = 0; i < n; i++){
+    		for(; i < n; i++){
+        		cout << i << endl;
+    		}
+	}
+Answer: O(n)
+
+
+9. What will be the Time Complexity of following code in terms of ‘n’ ?
+	for(int i = 0; i < n; i++){
+     		for(int j = 1 ; j < k; j++){
+        		cout << (i + j ) << endl;
+      		}
+  	}
+Answer: O(n)
+
+
+10. For merging two sorted arrays of size m and n into a sorted array of size m+n, we require operations -
+Answer: O(m + n)
+
+
+11. Worst case time complexity of Binary Search is ?
+Answer: O(log(n))
+
+
+12. What is the recurrence relation for merge sort :
+Answer: T(n) = 2T(n/2) + O(n)
+
+
+13. What is the time complexity of merge sort :
+Answer: O(n*log(n))
+
+
+14. What is the time complexity of following code ?
+	int multiplyRec(int m, int n){
+    		if(n == 1){
+        		return m;
+		}
+    		return m + multiplyRec(m,  n - 1);  
+	}
+Answer: O(n)
+
+
+15. What is the time complexity of following code ?
+	int sumOfDigits(int n){
+        	int sum;
+        	if(n < 10){
+            		return n;
+        	}
+        	sum = (n % 10) + sumOfDigits(n / 10);
+        	return sum;
+	}
+Answer: O(log(n))
+
+
+16. What is the time complexity of following code for calculating nth fibonacci number
+	long fib(int n){
+    		if(n == 0 || n == 1){
+         		return n;
+    		}
+    		return fib(n - 1) + fib(n - 2);
+	}
+Answer: O(2^n)
+
+17. The space complexity for merge sort is :
+Answer: O(n)
+
+
+18. The space complexity for finding nth fibonacci number using recursion is :
+Answer: O(n)
